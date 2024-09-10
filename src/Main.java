@@ -7,7 +7,15 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.util.Arrays;
 
-public class Main extends JFrame {
+public class Main extends JFrame implements KeyListener {
+    boolean didRed = false;
+    boolean didGreen = false;
+    boolean didBlue = false;
+    boolean didRedGreen = false;
+    boolean didRedBlue = false;
+    boolean didGreenBlue = false;
+    boolean didRedGreenBlue = false;
+
     String[] moveStartPos = {"LEFT", "DOWN", "DOWN", "DOWN", "DOWN", "DOWN", "DOWN", "DOWN", "DOWN", "DOWN", "DOWN", "DOWN", "DOWN", "DOWN", "DOWN", "DOWN", "LEFT", "LEFT", "LEFT", "LEFT", "LEFT", "LEFT", "LEFT", "LEFT", "LEFT", "LEFT", "LEFT", "LEFT", "LEFT", "LEFT", "LEFT", "LEFT", "LEFT", "LEFT", "LEFT"};
     String[] loop = {"UP", "UP", "UP", "UP", "UP", "UP", "UP", "UP", "UP", "UP", "UP", "UP", "UP", "UP", "UP", "UP", "UP", "UP", "UP", "UP", "UP", "UP", "UP", "UP", "UP", "UP", "UP",
             "RIGHT",
@@ -177,6 +185,7 @@ public class Main extends JFrame {
                     System.arraycopy(snake, 0, newSnake, 1, snake.length);
                     snake = newSnake;
                     food = null; // Food should disappear after being eaten
+                    System.out.println(snake.length);
                     if (snake.length == 1120) {
                         System.out.println("IT WON");
                         System.out.println("IT WON");
@@ -252,9 +261,21 @@ public class Main extends JFrame {
 
                 // Draw the snake
                 for (int i = 0; i < snake.length; i++) {
-                    Color color = (i == 0) ? new Color(0, 100, 0) : new Color(0, 200, 0);
-                    g2d.setColor(color);
-                    g2d.fillRect(snake[i][0], snake[i][1], 25, 25);
+                    if (i > 255) {
+                        if (i > 510) {
+                            Color color = new Color(i, i, i);
+                            g2d.setColor(color);
+                            g2d.fillRect(snake[i][0], snake[i][1], 25, 25);
+                        } else {
+                            Color color = new Color(i, i, 0);
+                            g2d.setColor(color);
+                            g2d.fillRect(snake[i][0], snake[i][1], 25, 25);
+                        }
+                    } else {
+                        Color color = new Color(i, 0, 0);
+                        g2d.setColor(color);
+                        g2d.fillRect(snake[i][0], snake[i][1], 25, 25);
+                    }
                 }
 
                 g2d.dispose();
@@ -275,8 +296,8 @@ public class Main extends JFrame {
 
     public static int[] getRPos() {
         int[] pos;
-        int maxX = (width / 25)-1;
-        int maxY = (height / 25)-1;
+        int maxX = (width / 25);
+        int maxY = (height / 25);
         int posX = (int) (Math.random() * maxX);
         int posY = (int) (Math.random() * maxY);
         pos = new int[]{posX * 25, posY * 25};
@@ -285,5 +306,22 @@ public class Main extends JFrame {
 
     public boolean isPositionInSnake(int[] pos) {
         return Arrays.stream(snake).anyMatch(part -> Arrays.equals(part, pos));
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+            atStartPos = false;
+        }
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
     }
 }
