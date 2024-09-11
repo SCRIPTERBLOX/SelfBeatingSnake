@@ -116,7 +116,7 @@ public class Main extends JFrame implements KeyListener {
 
     public Main() {
         super("Snake");
-        setSize(width, height);
+        setSize(width+25, height+25);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         snake = defSnake;
@@ -263,11 +263,11 @@ public class Main extends JFrame implements KeyListener {
                 for (int i = 0; i < snake.length; i++) {
                     if (i > 255) {
                         if (i > 510) {
-                            Color color = new Color(i, i, i);
+                            Color color = new Color(255, 255, i-510);
                             g2d.setColor(color);
                             g2d.fillRect(snake[i][0], snake[i][1], 25, 25);
                         } else {
-                            Color color = new Color(i, i, 0);
+                            Color color = new Color(255, i-255, 0);
                             g2d.setColor(color);
                             g2d.fillRect(snake[i][0], snake[i][1], 25, 25);
                         }
