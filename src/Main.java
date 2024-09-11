@@ -263,11 +263,11 @@ public class Main extends JFrame implements KeyListener {
                 for (int i = 0; i < snake.length; i++) {
                     if (i > 255) {
                         if (i > 510) {
-                            Color color = new Color(0, 0, i-510);
+                            Color color = new Color(510-i, 510-i, i-510);
                             g2d.setColor(color);
                             g2d.fillRect(snake[i][0], snake[i][1], 25, 25);
                         } else {
-                            Color color = new Color(0, i-255, 0);
+                            Color color = new Color(255-i, i-255, 0);
                             g2d.setColor(color);
                             g2d.fillRect(snake[i][0], snake[i][1], 25, 25);
                         }
